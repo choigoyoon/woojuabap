@@ -1,0 +1,19 @@
+﻿service: crypto-webhook
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: ap-northeast-2
+  memorySize: 256
+  timeout: 300
+  deploymentBucket:
+    name: crypto-webhook-deployment-905418204332
+
+functions:
+  cryptoWebhook:
+    handler: handler.main
+    events:
+      - schedule: rate(30 minutes)
+
+plugins:
+  - serverless-python-requirements

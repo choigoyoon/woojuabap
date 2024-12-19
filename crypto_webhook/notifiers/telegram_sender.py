@@ -1,6 +1,6 @@
 import os
 import logging
-import aiohttp
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -20,19 +20,18 @@ class TelegramSender:
         """텔레그램으로 메시지 전송"""
         try:
             url = f"{self.base_url}/sendMessage"
-            async with aiohttp.ClientSession() as session:
-                async with session.post(url, json={
-                    "chat_id": self.chat_id,
-                    "text": message,
-                    "parse_mode": "HTML"
-                }) as response:
-                    if response.status == 200:
-                        logger.info("텔레그램 메시지 전송 성공")
-                        return True
-                    else:
-                        response_text = await response.text()
-                        logger.error(f"텔레그램 메시지 전송 실패: {response_text}")
-                        return False
+            response = requests.post(url, json={
+                "chat_id": self.chat_id,
+                "text": message,
+                "parse_mode": "HTML"
+            })
+            
+            if response.status_code == 200:
+                logger.info("텔레그램 메시지 전송 성공")
+                return True
+            else:
+                logger.error(f"텔레그램 메시지 전송 실패: {response.text}")
+                return False
                 
         except Exception as e:
             logger.error(f"텔레그램 전송 중 오류: {str(e)}")
