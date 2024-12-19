@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  crypto_bot:
+    build: 
+      context: ../../
+      dockerfile: infrastructure/docker/Dockerfile
+    volumes:
+      - ../../:/app
+      - ../../logs:/app/logs
+    environment:
+      - PYTHONPATH=/app
+    env_file:
+      - ../../.env
+    restart: unless-stopped 

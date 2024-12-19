@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  CryptoWebhookFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../../../
+      Handler: crypto_webhook.aws.lambda_handler.lambda_handler
+      Runtime: python3.9
+      Timeout: 30
+      MemorySize: 256
+      Environment:
+        Variables:
+          TELEGRAM_BOT_TOKEN: !Ref TelegramBotToken
+          OPENAI_API_KEY: !Ref OpenAIApiKey 

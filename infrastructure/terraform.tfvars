@@ -1,0 +1,5 @@
+openai_api_key      = "your-openai-api-key"
+telegram_bot_token  = "your-telegram-bot-token"
+telegram_chat_id    = "your-telegram-chat-id"
+gmail_user          = "your-gmail"
+gmail_app_password  = "your-gmail-app-password" 
